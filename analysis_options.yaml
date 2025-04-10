@@ -1,1 +1,14 @@
 include: package:flutter_lints/flutter.yaml
+
+linter:
+  rules:
+    always_declare_return_types: true
+    avoid_print: true
+    prefer_const_constructors: true
+    prefer_final_locals: true
+    avoid_renaming_method_parameters: true
+    annotate_overrides: true
+    sort_constructors_first: true
+    unnecessary_lambdas: true
+    use_super_parameters: true
+    avoid_returning_null: true
