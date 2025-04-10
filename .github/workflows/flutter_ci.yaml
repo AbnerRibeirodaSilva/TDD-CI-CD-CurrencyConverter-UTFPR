@@ -11,24 +11,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 📥 Checkout código
+      - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: 🐦 Instalar Flutter
+      - name: Flutter installation
         uses: subosito/flutter-action@v2
         with:
           flutter-version: "3.22.3"
 
-      - name: 📦 Instalar dependências
+      - name: Dependencies
         run: flutter pub get
 
-      - name: 🧹 Analisar com Lint
+      - name: Analysis with Lint
         run: flutter analyze
 
-      - name: ✅ Rodar testes
+      - name: Run Tests
         run: flutter test --coverage
 
-      - name: 🧪 Verificar cobertura de testes
+      - name: Verify Tests coverage
         run: |
           sudo apt-get install -y lcov
           lcov --summary coverage/lcov.info

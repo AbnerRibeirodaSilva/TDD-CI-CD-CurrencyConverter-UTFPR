@@ -29,27 +29,27 @@ class CurrencyConverterController extends ChangeNotifier {
     required double amount,
   }) {
     switch ('${from.name}/${to.name}') {
-      case 'USD/BRL':
+      case 'usd/brl':
         _convertedAmount = amount * 5.72;
         break;
-      case 'USD/EUR':
+      case 'usd/eur':
         _convertedAmount = amount * 0.85;
         break;
-      case 'EUR/USD':
+      case 'eur/usd':
         _convertedAmount = amount * 1.18;
         break;
-      case 'EUR/BRL':
+      case 'eur/brl':
         _convertedAmount = amount * 6.50;
         break;
-      case 'BRL/USD':
+      case 'brl/usd':
         _convertedAmount = amount * 0.18;
         break;
-      case 'BRL/EUR':
+      case 'brl/eur':
         _convertedAmount = amount * 0.15;
         break;
-      case 'USD/USD':
-      case 'EUR/EUR':
-      case 'BRL/BRL':
+      case 'usd/usd':
+      case 'eur/eur':
+      case 'brl/brl':
         _convertedAmount = amount;
         break;
       default:
