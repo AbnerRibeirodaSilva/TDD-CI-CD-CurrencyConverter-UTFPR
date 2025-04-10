@@ -17,82 +17,97 @@ class _CurrencyConverterPageState extends State<CurrencyConverterPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Currency Converter'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            DropdownButtonFormField<CurrencyTypeEnum>(
-              decoration: const InputDecoration(labelText: 'From Currency'),
-              items: const [
-                DropdownMenuItem(
-                  value: CurrencyTypeEnum.USD,
-                  child: Text('USD'),
+    return ListenableBuilder(
+      listenable: _controller,
+      builder: (context, widget) {
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('Currency Converter'),
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                DropdownButtonFormField<CurrencyTypeEnum>(
+                  decoration: const InputDecoration(labelText: 'From Currency'),
+                  items: const [
+                    DropdownMenuItem(
+                      value: CurrencyTypeEnum.USD,
+                      child: Text('USD'),
+                    ),
+                    DropdownMenuItem(
+                      value: CurrencyTypeEnum.EUR,
+                      child: Text('EUR'),
+                    ),
+                    DropdownMenuItem(
+                      value: CurrencyTypeEnum.BRL,
+                      child: Text('BRL'),
+                    ),
+                  ],
+                  onChanged: (value) {
+                    _controller.setFrom(value!);
+                  },
                 ),
-                DropdownMenuItem(
-                  value: CurrencyTypeEnum.EUR,
-                  child: Text('EUR'),
+                const SizedBox(height: 16),
+                DropdownButtonFormField<CurrencyTypeEnum>(
+                  decoration: const InputDecoration(labelText: 'To Currency'),
+                  items: const [
+                    DropdownMenuItem(
+                      value: CurrencyTypeEnum.USD,
+                      child: Text('USD'),
+                    ),
+                    DropdownMenuItem(
+                      value: CurrencyTypeEnum.EUR,
+                      child: Text('EUR'),
+                    ),
+                    DropdownMenuItem(
+                      value: CurrencyTypeEnum.BRL,
+                      child: Text('BRL'),
+                    ),
+                  ],
+                  onChanged: (value) {
+                    _controller.setTo(value!);
+                  },
                 ),
-                DropdownMenuItem(
-                  value: CurrencyTypeEnum.BRL,
-                  child: Text('BRL'),
+                const SizedBox(height: 16),
+                TextFormField(
+                  decoration: const InputDecoration(labelText: 'Amount'),
+                  keyboardType: TextInputType.number,
+                  controller: _amountController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter an amount';
+                    }
+                    final double? amount = double.tryParse(value);
+                    if (amount == null || amount <= 0) {
+                      return 'Please enter a valid amount';
+                    }
+                    return null;
+                  },
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(
+                      RegExp(r'^\d+\.?\d{0,2}'),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                ElevatedButton(
+                  onPressed: () => _controller.convertCurrency(
+                    amount: double.tryParse(_amountController.text) ?? 0.0,
+                  ),
+                  child: const Text('Convert'),
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  'Result: ${_controller.convertedAmount}',
+                  style: const TextStyle(fontSize: 18),
                 ),
               ],
-              onChanged: (value) {
-                _controller.setFrom(value!);
-              },
             ),
-            const SizedBox(height: 16),
-            DropdownButtonFormField<CurrencyTypeEnum>(
-              decoration: const InputDecoration(labelText: 'To Currency'),
-              items: const [
-                DropdownMenuItem(
-                  value: CurrencyTypeEnum.USD,
-                  child: Text('USD'),
-                ),
-                DropdownMenuItem(
-                  value: CurrencyTypeEnum.EUR,
-                  child: Text('EUR'),
-                ),
-                DropdownMenuItem(
-                  value: CurrencyTypeEnum.BRL,
-                  child: Text('BRL'),
-                ),
-              ],
-              onChanged: (value) {
-                _controller.setTo(value!);
-              },
-            ),
-            const SizedBox(height: 16),
-            TextFormField(
-              decoration: const InputDecoration(labelText: 'Amount'),
-              keyboardType: TextInputType.number,
-              controller: _amountController,
-              inputFormatters: [
-                FilteringTextInputFormatter.allow(
-                  RegExp(r'^\d+\.?\d{0,2}'),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () => _controller.convertCurrency(
-                amount: double.tryParse(_amountController.text) ?? 0.0,
-              ),
-              child: const Text('Convert'),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              'Result: ${_controller.convertedAmount}',
-              style: const TextStyle(fontSize: 18),
-            ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
