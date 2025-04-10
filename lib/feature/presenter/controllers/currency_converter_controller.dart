@@ -7,9 +7,9 @@ class CurrencyConverterController extends ChangeNotifier {
 
   double get convertedAmount => _convertedAmount;
 
-  CurrencyTypeEnum _from = CurrencyTypeEnum.USD;
+  CurrencyTypeEnum _from = CurrencyTypeEnum.usd;
 
-  CurrencyTypeEnum _to = CurrencyTypeEnum.USD;
+  CurrencyTypeEnum _to = CurrencyTypeEnum.usd;
 
   CurrencyTypeEnum get from => _from;
 

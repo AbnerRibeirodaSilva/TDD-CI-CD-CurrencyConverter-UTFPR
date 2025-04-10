@@ -33,15 +33,15 @@ class _CurrencyConverterPageState extends State<CurrencyConverterPage> {
                   decoration: const InputDecoration(labelText: 'From Currency'),
                   items: const [
                     DropdownMenuItem(
-                      value: CurrencyTypeEnum.USD,
+                      value: CurrencyTypeEnum.usd,
                       child: Text('USD'),
                     ),
                     DropdownMenuItem(
-                      value: CurrencyTypeEnum.EUR,
+                      value: CurrencyTypeEnum.eur,
                       child: Text('EUR'),
                     ),
                     DropdownMenuItem(
-                      value: CurrencyTypeEnum.BRL,
+                      value: CurrencyTypeEnum.brl,
                       child: Text('BRL'),
                     ),
                   ],
@@ -54,15 +54,15 @@ class _CurrencyConverterPageState extends State<CurrencyConverterPage> {
                   decoration: const InputDecoration(labelText: 'To Currency'),
                   items: const [
                     DropdownMenuItem(
-                      value: CurrencyTypeEnum.USD,
+                      value: CurrencyTypeEnum.usd,
                       child: Text('USD'),
                     ),
                     DropdownMenuItem(
-                      value: CurrencyTypeEnum.EUR,
+                      value: CurrencyTypeEnum.eur,
                       child: Text('EUR'),
                     ),
                     DropdownMenuItem(
-                      value: CurrencyTypeEnum.BRL,
+                      value: CurrencyTypeEnum.brl,
                       child: Text('BRL'),
                     ),
                   ],

@@ -1,5 +1,5 @@
 enum CurrencyTypeEnum {
-  USD,
-  EUR,
-  BRL,
+  usd,
+  eur,
+  brl,
 }

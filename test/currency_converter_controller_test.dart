@@ -14,8 +14,8 @@ void main() {
       test(
         'Convert 1 USD to EUR',
         () {
-          controller.setFrom(CurrencyTypeEnum.USD);
-          controller.setTo(CurrencyTypeEnum.EUR);
+          controller.setFrom(CurrencyTypeEnum.usd);
+          controller.setTo(CurrencyTypeEnum.eur);
           controller.convertCurrency(
             amount: 1.0,
           );
@@ -26,8 +26,8 @@ void main() {
       test(
         'Convert 100 EUR to USD',
         () {
-          controller.setFrom(CurrencyTypeEnum.EUR);
-          controller.setTo(CurrencyTypeEnum.USD);
+          controller.setFrom(CurrencyTypeEnum.eur);
+          controller.setTo(CurrencyTypeEnum.usd);
           controller.convertCurrency(
             amount: 100.0,
           );
@@ -38,8 +38,8 @@ void main() {
       test(
         'Convert 100 USD to BRL',
         () {
-          controller.setFrom(CurrencyTypeEnum.USD);
-          controller.setTo(CurrencyTypeEnum.BRL);
+          controller.setFrom(CurrencyTypeEnum.usd);
+          controller.setTo(CurrencyTypeEnum.brl);
           controller.convertCurrency(
             amount: 100.0,
           );
@@ -50,8 +50,8 @@ void main() {
       test(
         'Convert 0 USD to EUR (should result in 0)',
         () {
-          controller.setFrom(CurrencyTypeEnum.USD);
-          controller.setTo(CurrencyTypeEnum.EUR);
+          controller.setFrom(CurrencyTypeEnum.usd);
+          controller.setTo(CurrencyTypeEnum.eur);
           controller.convertCurrency(amount: 0.0);
           expect(controller.convertedAmount, 0.0);
         },
@@ -60,8 +60,8 @@ void main() {
       test(
         'Convert -50 USD to EUR (should handle gracefully)',
         () {
-          controller.setFrom(CurrencyTypeEnum.USD);
-          controller.setTo(CurrencyTypeEnum.EUR);
+          controller.setFrom(CurrencyTypeEnum.usd);
+          controller.setTo(CurrencyTypeEnum.eur);
           controller.convertCurrency(amount: -50.0);
           expect(controller.convertedAmount, -42.5);
         },
@@ -70,8 +70,8 @@ void main() {
       test(
         'Convert same currency (USD to USD)',
         () {
-          controller.setFrom(CurrencyTypeEnum.USD);
-          controller.setTo(CurrencyTypeEnum.USD);
+          controller.setFrom(CurrencyTypeEnum.usd);
+          controller.setTo(CurrencyTypeEnum.usd);
           controller.convertCurrency(amount: 100.0);
           expect(controller.convertedAmount, 100.0);
         },
