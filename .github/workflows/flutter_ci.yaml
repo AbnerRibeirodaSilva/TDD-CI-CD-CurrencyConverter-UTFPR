@@ -1,0 +1,34 @@
+name: Flutter CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout código
+        uses: actions/checkout@v3
+
+      - name: 🐦 Instalar Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.22.3"
+
+      - name: 📦 Instalar dependências
+        run: flutter pub get
+
+      - name: 🧹 Analisar com Lint
+        run: flutter analyze
+
+      - name: ✅ Rodar testes
+        run: flutter test --coverage
+
+      - name: 🧪 Verificar cobertura de testes
+        run: |
+          sudo apt-get install -y lcov
+          lcov --summary coverage/lcov.info
