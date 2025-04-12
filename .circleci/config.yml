@@ -3,9 +3,17 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: cirrusci/flutter:stable
+      - image: cimg/base:stable
+
     steps:
       - checkout
+
+      - run:
+          name: Install Flutter manually
+          command: |
+            git clone https://github.com/flutter/flutter.git -b stable
+            export PATH="$PATH:`pwd`/flutter/bin"
+            flutter doctor
 
       - run:
           name: Install dependencies
