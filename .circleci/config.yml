@@ -4,19 +4,27 @@ jobs:
   build:
     docker:
       - image: cimg/base:stable
-
+    environment:
+      FLUTTER_HOME: ~/flutter
+      PATH: ~/flutter/bin:~/flutter/bin/cache/dart-sdk/bin:$PATH
     steps:
       - checkout
 
       - run:
-          name: Install Flutter manually
+          name: Install dependencies (curl, unzip, git)
           command: |
-            git clone https://github.com/flutter/flutter.git -b stable
-            export PATH="$PATH:`pwd`/flutter/bin"
-            flutter doctor
+            sudo apt-get update
+            sudo apt-get install -y curl git unzip xz-utils
 
       - run:
-          name: Install dependencies
+          name: Install Flutter 3.22.3
+          command: |
+            curl -O https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.22.3-stable.tar.xz
+            tar xf flutter_linux_3.22.3-stable.tar.xz
+            flutter/bin/flutter doctor
+
+      - run:
+          name: Install project dependencies
           command: flutter pub get
 
       - run:
@@ -41,7 +49,7 @@ jobs:
           command: flutter build apk --debug
 
       - run:
-          name: List generated APK
+          name: List generated APKs
           command: ls -lh build/app/outputs/flutter-apk/
 
 workflows:
