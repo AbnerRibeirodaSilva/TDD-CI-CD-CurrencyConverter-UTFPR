@@ -9,13 +9,6 @@ jobs:
       PATH: ~/flutter/bin:~/flutter/bin/cache/dart-sdk/bin:$PATH
     steps:
       - checkout
-
-      - run:
-          name: Install dependencies (curl, unzip, git)
-          command: |
-            apt-get update
-            apt-get install -y curl git unzip xz-utils
-
       - run:
           name: Install Flutter 3.22.3
           command: |
