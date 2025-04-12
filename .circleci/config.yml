@@ -14,6 +14,7 @@ jobs:
           command: |
             curl -O https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.22.3-stable.tar.xz
             tar xf flutter_linux_3.22.3-stable.tar.xz
+            mv flutter ~/flutter
             flutter/bin/flutter doctor
 
       - run:
