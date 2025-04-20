@@ -8,8 +8,9 @@ jobs:
     executor: flutter/android
     steps:
       - checkout
-      - flutter/install
-      
+      - run:
+          name: Install Flutter
+          command: flutter/bin/flutter precache
       - run:
           name: Install dependencies
           command: flutter pub get
