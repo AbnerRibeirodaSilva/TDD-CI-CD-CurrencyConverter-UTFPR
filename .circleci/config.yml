@@ -11,14 +11,6 @@ jobs:
           name: Check Flutter version
           command: flutter --version
       - run:
-          name: Upgrade project dependencies
-          command: |
-            flutter pub upgrade
-            cd android && ./gradlew wrapper --gradle-version=8.0.2 && cd ..
-      - run:
-          name: Check Flutter version
-          command: flutter --version
-      - run:
           name: Install dependencies
           command: flutter pub get
       - run:
