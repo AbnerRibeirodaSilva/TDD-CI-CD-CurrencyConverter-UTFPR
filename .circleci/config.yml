@@ -12,7 +12,7 @@ jobs:
       - checkout
 
       - flutter/install_sdk_and_pub:
-          channel: stable
+          channel: stable  # Pega a versão mais recente do canal stable
 
       - flutter/install_android_gradle_dependencies
 
@@ -21,15 +21,15 @@ jobs:
           command: flutter pub get
 
       - run:
-          name: Static analysis (lint)
+          name: Analyze code
           command: flutter analyze
 
       - run:
-          name: Run tests with coverage
+          name: Run tests
           command: flutter test --coverage
 
       - run:
-          name: Check coverage file
+          name: Validate coverage file
           command: |
             if [ ! -f coverage/lcov.info ]; then
               echo "Coverage file not found!"
@@ -42,7 +42,7 @@ jobs:
           command: flutter build apk --debug
 
       - run:
-          name: List generated APK
+          name: List APK
           command: ls -lh build/app/outputs/flutter-apk/
 
 workflows:
