@@ -8,11 +8,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Setup Android SDK
-          command: |
-            yes | sdkmanager --licenses
-            sdkmanager "platforms;android-34" "build-tools;34.0.0" "cmake;3.22.1" "ndk;25.2.9519653"
-      - run:
           name: Check Flutter version
           command: flutter --version
       - run:
@@ -40,12 +35,6 @@ jobs:
               exit 1
             fi
             echo "Coverage OK."
-      - run:
-          name: Build debug APK
-          command: flutter build apk --debug
-      - run:
-          name: List APK
-          command: ls -lh build/app/outputs/flutter-apk/
 
 workflows:
   version: 2
