@@ -1,17 +1,26 @@
 version: 2.1
 
 orbs:
-  flutter: circleci/flutter@2.1.0
+  flutter: circleci/flutter@2.0.0
 
 jobs:
-  build:
-    executor:
-      name: android/android-machine
+  build_and_test:
+    docker:
+      - image: cimg/android:2023.09
+    resource_class: medium
+    environment:
+      FLUTTER_HOME: /usr/local/flutter
+      PATH: "${FLUTTER_HOME}/bin:${FLUTTER_HOME}/bin/cache/dart-sdk/bin:${PATH}"
     steps:
       - checkout
-
-      - flutter/install_sdk_and_pub:
-          channel: stable  
+      
+      - run:
+          name: Install Flutter
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y curl git unzip
+            git clone https://github.com/flutter/flutter.git -b stable --depth 1 $FLUTTER_HOME
+            flutter doctor
 
       - run:
           name: Install dependencies
@@ -44,6 +53,6 @@ jobs:
 
 workflows:
   version: 2
-  build_and_test:
+  build_test:
     jobs:
-      - build
+      - build_and_test
