@@ -1,22 +1,12 @@
 version: 2.1
 
-orbs:
-  flutter: circleci/flutter@2.0.0
-
-executors:
-  flutter-executor:
-    docker:
-      - image: cirrusci/flutter:latest
-    working_directory: ~/project
-
 jobs:
   build_and_test:
-    executor: flutter-executor
+    docker:
+      - image: cirrusci/flutter:stable
+    working_directory: ~/project
     steps:
       - checkout
-      - run:
-          name: Install Flutter
-          command: flutter/bin/flutter precache
       - run:
           name: Install dependencies
           command: flutter pub get
