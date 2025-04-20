@@ -3,22 +3,13 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: cimg/base:stable
-    environment:
-      FLUTTER_HOME: ~/flutter
-      PATH: ~/flutter/bin:~/flutter/bin/cache/dart-sdk/bin:$PATH
+      - image: cirrusci/flutter:3.22.3
     steps:
       - checkout
+
       - run:
-          name: Install Curl
-          command: sudo apt-get update && sudo apt-get install -y curl
-      - run:
-          name: Install Flutter 3.22.3
-          command: |
-            curl -O https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.22.3-stable.tar.xz
-            tar xf flutter_linux_3.22.3-stable.tar.xz
-            mv flutter ~/flutter
-            flutter/bin/flutter doctor
+          name: Check Flutter Version
+          command: flutter --version
 
       - run:
           name: Install project dependencies
