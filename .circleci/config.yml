@@ -3,10 +3,15 @@ version: 2.1
 orbs:
   flutter: circleci/flutter@2.0.0
 
+executors:
+  flutter-executor:
+    docker:
+      - image: cirrusci/flutter:latest
+    working_directory: ~/project
+
 jobs:
   build_and_test:
-    executor:
-      name: flutter/default
+    executor: flutter-executor
     steps:
       - checkout
       - run:
