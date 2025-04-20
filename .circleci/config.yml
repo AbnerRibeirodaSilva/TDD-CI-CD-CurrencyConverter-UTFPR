@@ -5,7 +5,8 @@ orbs:
 
 jobs:
   build_and_test:
-    executor: flutter/android
+    executor:
+      name: flutter/default
     steps:
       - checkout
       - run:
@@ -14,15 +15,12 @@ jobs:
       - run:
           name: Install dependencies
           command: flutter pub get
-
       - run:
           name: Analyze code
           command: flutter analyze
-
       - run:
           name: Run tests
           command: flutter test --coverage
-
       - run:
           name: Validate coverage file
           command: |
@@ -31,11 +29,9 @@ jobs:
               exit 1
             fi
             echo "Coverage OK."
-
       - run:
           name: Build debug APK
           command: flutter build apk --debug
-
       - run:
           name: List APK
           command: ls -lh build/app/outputs/flutter-apk/
