@@ -1,25 +1,28 @@
 version: 2.1
 
+orbs:
+  flutter: circleci/flutter@2.1.0
+  android: circleci/android@1.0.3
+
 jobs:
   build:
-    docker:
-      - image: cirrusci/flutter:3.19.6
+    executor:
+      name: android/android-machine
     steps:
       - checkout
 
-      - run:
-          name: Upgrade to Flutter 3.22.3
-          command: |
-            git clone https://github.com/flutter/flutter.git -b 3.22.3-stable
-            export PATH="$PWD/flutter/bin:$PATH"
-            flutter doctor
+      - flutter/install_sdk_and_pub:
+          channel: stable
+          version: 3.22.3
+
+      - flutter/install_android_gradle_dependencies
 
       - run:
           name: Install dependencies
           command: flutter pub get
 
       - run:
-          name: Analyze
+          name: Static analysis (lint)
           command: flutter analyze
 
       - run:
@@ -36,11 +39,11 @@ jobs:
             echo "Coverage OK."
 
       - run:
-          name: Build APK
+          name: Build debug APK
           command: flutter build apk --debug
 
       - run:
-          name: List APKs
+          name: List generated APK
           command: ls -lh build/app/outputs/flutter-apk/
 
 workflows:
