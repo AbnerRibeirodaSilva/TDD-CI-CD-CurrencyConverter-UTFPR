@@ -3,20 +3,23 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: cimg/flutter:3.22
+      - image: cirrusci/flutter:3.19.6
     steps:
       - checkout
 
       - run:
-          name: Check Flutter Version
-          command: flutter --version
+          name: Upgrade to Flutter 3.22.3
+          command: |
+            git clone https://github.com/flutter/flutter.git -b 3.22.3-stable
+            export PATH="$PWD/flutter/bin:$PATH"
+            flutter doctor
 
       - run:
-          name: Install project dependencies
+          name: Install dependencies
           command: flutter pub get
 
       - run:
-          name: Static analysis (lint)
+          name: Analyze
           command: flutter analyze
 
       - run:
@@ -33,11 +36,11 @@ jobs:
             echo "Coverage OK."
 
       - run:
-          name: Build debug APK
+          name: Build APK
           command: flutter build apk --debug
 
       - run:
-          name: List generated APKs
+          name: List APKs
           command: ls -lh build/app/outputs/flutter-apk/
 
 workflows:
