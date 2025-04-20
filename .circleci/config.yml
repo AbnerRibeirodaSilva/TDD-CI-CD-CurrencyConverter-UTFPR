@@ -5,23 +5,11 @@ orbs:
 
 jobs:
   build_and_test:
-    docker:
-      - image: cimg/android:2023.09
-    resource_class: medium
-    environment:
-      FLUTTER_HOME: /usr/local/flutter
-      PATH: "${FLUTTER_HOME}/bin:${FLUTTER_HOME}/bin/cache/dart-sdk/bin:${PATH}"
+    executor: flutter/android
     steps:
       - checkout
+      - flutter/install
       
-      - run:
-          name: Install Flutter
-          command: |
-            sudo apt-get update
-            sudo apt-get install -y curl git unzip
-            git clone https://github.com/flutter/flutter.git -b stable --depth 1 $FLUTTER_HOME
-            flutter doctor
-
       - run:
           name: Install dependencies
           command: flutter pub get
