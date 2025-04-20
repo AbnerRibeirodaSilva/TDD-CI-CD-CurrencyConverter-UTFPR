@@ -8,6 +8,19 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Setup Android SDK
+          command: |
+            yes | sdkmanager --licenses
+            sdkmanager "platforms;android-34" "build-tools;34.0.0" "cmake;3.22.1" "ndk;25.2.9519653"
+      - run:
+          name: Check Flutter version
+          command: flutter --version
+      - run:
+          name: Upgrade project dependencies
+          command: |
+            flutter pub upgrade
+            cd android && ./gradlew wrapper --gradle-version=8.0.2 && cd ..
+      - run:
           name: Check Flutter version
           command: flutter --version
       - run:
